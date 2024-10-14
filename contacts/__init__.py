@@ -2,6 +2,8 @@ import os
 
 from flask import Flask
 
+from contacts.auth import login_required
+
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -20,9 +22,14 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/hello')
-    def hello():
+    @app.route('/')
+    def index():
         return 'Hello, World!'
+
+    @app.route('/profile')
+    @login_required
+    def profile():
+        return 'Hello, User!'
 
     from . import db
     db.init_app(app)
