@@ -69,11 +69,6 @@ def test_update_post_method_validates_input(client, path):
     assert b'E-mail is required.' in response.data
 
 
-def test_delete_post_method(client, app):
+def test_delete_post_method_redirects_to_index(client, app):
     response = client.post('/1/delete')
     assert response.headers["Location"] == "/"
-
-    with app.app_context():
-        db = get_db()
-        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
-        assert contact is None

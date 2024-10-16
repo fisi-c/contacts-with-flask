@@ -7,6 +7,8 @@ from pytest_bdd import (
     when,
 )
 
+from contacts.db import get_db
+
 
 @scenario('features/contact_delete.feature', 'User deletes contact')
 def test_user_deletes_contact():
@@ -14,25 +16,32 @@ def test_user_deletes_contact():
 
 
 @given('a contact')
-def _():
+def _(app):
     """a contact."""
-    raise NotImplementedError
+    with app.app_context():
+        db = get_db()
+        db.execute(
+            "INSERT INTO contacts (first_name, last_name, e_mail, phone_number, address, created_at)"
+            "VALUES ('Joe', 'Bloggs', 'joe.bloggs@example.com', '+44-011-755-5555', 'Bristol', '2024-01-01 00:00:00');"
+        )
 
 
 @given('a user')
 def _():
     """a user."""
-    raise NotImplementedError
+    pass
 
 
 @when('she posts deleting the contact')
-def _():
+def _(client):
     """she posts deleting the contact."""
-    raise NotImplementedError
+    client.post('/1/delete')
 
 
-@then('the contact is not in the database')
-def _():
-    """the contact is not in the database."""
-    raise NotImplementedError
-
+@then('there is no contact in the database')
+def _(app):
+    """there is no contact in the database."""
+    with app.app_context():
+        db = get_db()
+        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
+        assert contact is None

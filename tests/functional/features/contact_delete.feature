@@ -8,4 +8,4 @@ Feature: Delete contact
         Given a user
         And a contact
         When she posts deleting the contact
-        Then the contact is not in the database
+        Then there is no contact in the database
