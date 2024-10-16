@@ -12,22 +12,22 @@ from pytest_bdd import (
 from contacts.db import get_db
 
 
-@scenario('features/contact_add.feature', 'User omits e-mail')
+@scenario('features/manage/add.feature', 'User omits e-mail')
 def test_user_omits_email():
     """User omits e-mail."""
 
 
-@scenario('features/contact_add.feature', 'User omits first name')
+@scenario('features/manage/add.feature', 'User omits first name')
 def test_user_omits_first_name():
     """User omits first name."""
 
 
-@scenario('features/contact_add.feature', 'User omits last name')
+@scenario('features/manage/add.feature', 'User omits last name')
 def test_user_omits_last_name():
     """User omits last name."""
 
 
-@scenario('features/contact_add.feature', 'User submits new contact')
+@scenario('features/manage/add.feature', 'User submits new contact')
 def test_user_submits_new_contact():
     """User submits new contact."""
 

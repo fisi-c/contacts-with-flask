@@ -10,27 +10,27 @@ from pytest_bdd import (
 from contacts.db import get_db
 
 
-@scenario('features/contact_update.feature', 'User changes address')
+@scenario('features/manage/update.feature', 'User changes address')
 def test_user_changes_address():
     """User changes address."""
 
 
-@scenario('features/contact_update.feature', 'User changes e-mail')
+@scenario('features/manage/update.feature', 'User changes e-mail')
 def test_user_changes_email():
     """User changes e-mail."""
 
 
-@scenario('features/contact_update.feature', 'User changes first name')
+@scenario('features/manage/update.feature', 'User changes first name')
 def test_user_changes_first_name():
     """User changes first name."""
 
 
-@scenario('features/contact_update.feature', 'User changes last name')
+@scenario('features/manage/update.feature', 'User changes last name')
 def test_user_changes_last_name():
     """User changes last name."""
 
 
-@scenario('features/contact_update.feature', 'User changes phone')
+@scenario('features/manage/update.feature', 'User changes phone')
 def test_user_changes_phone():
     """User changes phone."""
 

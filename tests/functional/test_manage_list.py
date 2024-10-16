@@ -10,7 +10,7 @@ from pytest_bdd import (
 from contacts.db import get_db
 
 
-@scenario('features/contact_list.feature', 'User requests list')
+@scenario('features/manage/list.feature', 'User requests list')
 def test_user_requests_list():
     """User requests list."""
 

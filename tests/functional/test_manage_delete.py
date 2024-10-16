@@ -10,7 +10,7 @@ from pytest_bdd import (
 from contacts.db import get_db
 
 
-@scenario('features/contact_delete.feature', 'User deletes contact')
+@scenario('features/manage/delete.feature', 'User deletes contact')
 def test_user_deletes_contact():
     """User deletes contact."""
 
