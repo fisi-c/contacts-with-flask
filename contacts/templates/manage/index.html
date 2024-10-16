@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Contact list{% endblock %}</h1>
+  <a href="{{ url_for('manage.create') }}">Create contact</a>
+{% endblock %}
+
+{% block content %}
+<table>
+    <thead>
+        <td>First name</td>
+        <td>Last name</td>
+        <td>E-mail</td>
+        <td>Phone number</td>
+        <td>Address</td>
+        <td>Created at</td>
+        <td>Action</td>
+    </thead>
+  {% for contact in contacts %}
+    <tr>
+        <td>{{ contact['first_name'] }}</td>
+        <td>{{ contact['last_name'] }}</td>
+        <td>{{ contact['e_mail'] }}</td>
+        <td>{{ contact['phone_number'] }}</td>
+        <td>{{ contact['address'] }}</td>
+        <td>{{ contact['created_at'].strftime('%Y-%m-%d') }}</td>
+        <td><a href="{{ url_for('manage.update', id=contact['id']) }}">edit</a></td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

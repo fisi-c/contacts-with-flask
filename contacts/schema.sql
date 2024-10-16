@@ -7,7 +7,5 @@ CREATE TABLE contacts (
   e_mail VARCHAR(100) UNIQUE NOT NULL,
   phone_number VARCHAR(20),
   address TEXT,
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  author_id INTEGER NOT NULL,
-  FOREIGN KEY (author_id) REFERENCES user (id)
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
