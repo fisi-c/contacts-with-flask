@@ -7,29 +7,29 @@ Feature: Update contact
     Scenario: User changes first name
         Given a user
         And a contact
-        When she posts a changed first name
-        Then the changed first name is in the database
+        When she posts a changed first name "Joe"
+        Then the first name of this contact is "Joe"
 
     Scenario: User changes last name
         Given a user
         And a contact
-        When she posts a changed last name
-        Then the changed last name is in the database
+        When she posts a changed last name "Bloggs"
+        Then the last name of this contact is "Bloggs"
 
     Scenario: User changes e-mail
         Given a user
         And a contact
-        When she posts a changed e-mail "changed@example.com"
-        Then the e-mail in the database is "changed@example.com"
+        When she posts a changed e-mail "joe.bloggs@example.com"
+        Then the e-mail of this contact is "joe.bloggs@example.com"
 
     Scenario: User changes phone
         Given a user
         And a contact
-        When she posts a changed phone "+49666600000"
-        Then the phone in the database is "+49666600000"
+        When she posts a changed phone "+44-011-755-5555"
+        Then the phone of this contact is "+44-011-755-5555"
 
     Scenario: User changes address
         Given a user
         And a contact
-        When she posts a changed address "somewhereoverthemountain"
-        Then the changed address is in the database "somewhereoverthemountain"
+        When she posts a changed address "Bristol"
+        Then the address of this contact is "Bristol"

@@ -7,6 +7,8 @@ from pytest_bdd import (
     when,
 )
 
+from contacts.db import get_db
+
 
 @scenario('features/contact_update.feature', 'User changes address')
 def test_user_changes_address():
@@ -34,73 +36,124 @@ def test_user_changes_phone():
 
 
 @given('a contact')
-def _():
+def _(app):
     """a contact."""
-    raise NotImplementedError
+    with app.app_context():
+        db = get_db()
+        db.execute(
+            "INSERT INTO contacts (first_name, last_name, e_mail)"
+            "VALUES ('Anonymous', 'Anonymous', 'anonymous@example.com');"
+        )
+        db.commit()
 
 
 @given('a user')
 def _():
     """a user."""
-    raise NotImplementedError
+    pass
 
 
-@when('she posts a changed address "somewhereoverthemountain"')
-def _():
-    """she posts a changed address "somewhereoverthemountain"."""
-    raise NotImplementedError
+@when('she posts a changed address "Bristol"')
+def _(client):
+    """she posts a changed address "Bristol"."""
+    client.post('/1/update', data={
+        'first_name': 'Anonymous',
+        'last_name': 'Anonymous',
+        'e_mail': 'anonymous@example.com',
+        'phone_number': '',
+        'address': 'Bristol',
+    })
 
 
-@when('she posts a changed e-mail "changed@example.com"')
-def _():
-    """she posts a changed e-mail "changed@example.com"."""
-    raise NotImplementedError
+@when('she posts a changed e-mail "joe.bloggs@example.com"')
+def _(client):
+    """she posts a changed e-mail "joe.bloggs@example.com"."""
+    client.post('/1/update', data={
+        'first_name': 'Anonymous',
+        'last_name': 'Anonymous',
+        'e_mail': 'joe.bloggs@example.com',
+        'phone_number': '',
+        'address': '',
+    })
 
 
-@when('she posts a changed first name')
-def _():
-    """she posts a changed first name."""
-    raise NotImplementedError
+@when('she posts a changed first name "Joe"')
+def _(client):
+    """she posts a changed first name "Joe"."""
+    client.post('/1/update', data={
+        'first_name': 'Joe',
+        'last_name': 'Anonymous',
+        'e_mail': 'anonymous@example.com',
+        'phone_number': '',
+        'address': '',
+    })
 
 
-@when('she posts a changed last name')
-def _():
-    """she posts a changed last name."""
-    raise NotImplementedError
+@when('she posts a changed last name "Bloggs"')
+def _(client):
+    """she posts a changed last name "Bloggs"."""
+    client.post('/1/update', data={
+        'first_name': 'Anonymous',
+        'last_name': 'Bloggs',
+        'e_mail': 'anonymous@example.com',
+        'phone_number': '',
+        'address': '',
+    })
 
 
-@when('she posts a changed phone "+49666600000"')
-def _():
-    """she posts a changed phone "+49666600000"."""
-    raise NotImplementedError
+@when('she posts a changed phone "+44-011-755-5555"')
+def _(client):
+    """she posts a changed phone "+44-011-755-5555"."""
+    client.post('/1/update', data={
+        'first_name': 'Anonymous',
+        'last_name': 'Anonymous',
+        'e_mail': 'anonymous@example.com',
+        'phone_number': '+44-011-755-5555',
+        'address': '',
+    })
 
 
-@then('the changed address is in the database "somewhereoverthemountain"')
-def _():
-    """the changed address is in the database "somewhereoverthemountain"."""
-    raise NotImplementedError
+@then('the address of this contact is "Bristol"')
+def _(app):
+    """the address of this contact is "Bristol"."""
+    with app.app_context():
+        db = get_db()
+        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
+        assert contact['address'] == 'Bristol'
 
 
-@then('the changed first name is in the database')
-def _():
-    """the changed first name is in the database."""
-    raise NotImplementedError
+@then('the first name of this contact is "Joe"')
+def _(app):
+    """the first name of this contact is "Joe"."""
+    with app.app_context():
+        db = get_db()
+        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
+        assert contact['first_name'] == 'Joe'
 
 
-@then('the changed last name is in the database')
-def _():
-    """the changed last name is in the database."""
-    raise NotImplementedError
+@then('the last name of this contact is "Bloggs"')
+def _(app):
+    """the last name of this contact is "Bloggs"."""
+    with app.app_context():
+        db = get_db()
+        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
+        assert contact['last_name'] == 'Bloggs'
 
 
-@then('the e-mail in the database is "changed@example.com"')
-def _():
-    """the e-mail in the database is "changed@example.com"."""
-    raise NotImplementedError
+@then('the e-mail of this contact is "joe.bloggs@example.com"')
+def _(app):
+    """the e-mail of this contact is "joe.bloggs@example.com"."""
+    with app.app_context():
+        db = get_db()
+        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
+        assert contact['e_mail'] == 'joe.bloggs@example.com'
 
 
-@then('the phone in the database is "+49666600000"')
-def _():
-    """the phone in the database is "+49666600000"."""
-    raise NotImplementedError
+@then('the phone of this contact is "+44-011-755-5555"')
+def _(app):
+    """the phone of this contact is "+44-011-755-5555"."""
+    with app.app_context():
+        db = get_db()
+        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
+        assert contact['phone_number'] == '+44-011-755-5555'
 
