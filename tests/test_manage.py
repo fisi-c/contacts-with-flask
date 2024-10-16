@@ -3,7 +3,7 @@ import pytest
 from contacts.db import get_db
 
 
-def test_index_contains_fixture_data(client):
+def test_index_returns_all_fields(client):
     response = client.get('/')
     assert b'Joe' in response.data
     assert b'Bloggs' in response.data
