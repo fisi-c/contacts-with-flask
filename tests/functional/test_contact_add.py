@@ -1,11 +1,15 @@
 """Add contact feature tests."""
 
+import pytest
+
 from pytest_bdd import (
     given,
     scenario,
     then,
     when,
 )
+
+from contacts.db import get_db
 
 
 @scenario('features/contact_add.feature', 'User omits e-mail')
@@ -31,47 +35,79 @@ def test_user_submits_new_contact():
 @given('a user')
 def _():
     """a user."""
-    raise NotImplementedError
+    pass
 
 
 @when('she posts a contact')
-def _():
+def _(client):
     """she posts a contact."""
-    raise NotImplementedError
+    client.post('/create', data={
+        'first_name': 'Anonymous',
+        'last_name': 'Anonymous',
+        'e_mail': 'anonymous@example.com',
+        'phone_number': '',
+        'address': '',
+    })
 
 
 @when('she posts a contact without e-mail')
-def _():
+def _(client):
     """she posts a contact without e-mail."""
-    raise NotImplementedError
+    global response
+    response = client.post('/create', data={
+        'first_name': 'Anonymous',
+        'last_name': 'Anonymous',
+        'e_mail': '',
+        'phone_number': '',
+        'address': '',
+    })
 
 
 @when('she posts a contact without first name')
-def _():
+def _(client):
     """she posts a contact without first name."""
-    raise NotImplementedError
+    global response
+    response = client.post('/create', data={
+        'first_name': '',
+        'last_name': 'Anonymous',
+        'e_mail': 'anonymous@example.com',
+        'phone_number': '',
+        'address': '',
+    })
 
 
 @when('she posts a contact without last name')
-def _():
+def _(client):
     """she posts a contact without last name."""
-    raise NotImplementedError
+    global response
+    response = client.post('/create', data={
+        'first_name': 'Anonymous',
+        'last_name': '',
+        'e_mail': 'anonymous@example.com',
+        'phone_number': '',
+        'address': '',
+    })
 
 
 @then('she can see an error message')
 def _():
     """she can see an error message."""
-    raise NotImplementedError
+    assert b'is required.' in response.data
 
 
-@then('the contact is in the database')
-def _():
-    """the contact is in the database."""
-    raise NotImplementedError
+@then('a contact is in the database')
+def _(app):
+    """a contact is in the database."""
+    with app.app_context():
+        db = get_db()
+        count = db.execute('SELECT COUNT(id) FROM contacts').fetchone()[0]
+        assert count == 1
 
 
-@then('the contact is not in the database')
-def _():
-    """the contact is not in the database."""
-    raise NotImplementedError
-
+@then('there is no contact in the database')
+def _(app):
+    """there is no contact in the database."""
+    with app.app_context():
+        db = get_db()
+        count = db.execute('SELECT COUNT(id) FROM contacts').fetchone()[0]
+        assert count == 0

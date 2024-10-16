@@ -21,22 +21,6 @@ def test_returns_404_for_nonexistant_contact(client, path):
     assert client.post(path).status_code == 404
 
 
-def test_create_post_method(client, app):
-    assert client.get('/create').status_code == 200
-    client.post('/create', data={
-        'first_name': 'Anonymous',
-        'last_name': 'Anonymous',
-        'e_mail': 'anonymous@example.com',
-        'phone_number': '',
-        'address': '',
-    })
-
-    with app.app_context():
-        db = get_db()
-        count = db.execute('SELECT COUNT(id) FROM contacts').fetchone()[0]
-        assert count == 2
-
-
 def test_update_post_method(client, app):
     assert client.get('/1/update').status_code == 200
     client.post('/1/update', data={
@@ -54,10 +38,9 @@ def test_update_post_method(client, app):
 
 
 @pytest.mark.parametrize('path', (
-    '/create',
     '/1/update',
 ))
-def test_create_and_update_post_methods_validate_input(client, path):
+def test_update_post_method_validates_input(client, path):
     response = client.post(path, data={
         'first_name': '',
         'last_name': 'Anonymous',
