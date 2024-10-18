@@ -90,7 +90,8 @@ def update(id):
         else:
             db = get_db()
             db.execute(
-                'UPDATE contacts SET first_name = ?, last_name = ?, e_mail = ?, phone_number = ?, address = ?'
+                'UPDATE contacts'
+                ' SET first_name = ?, last_name = ?, e_mail = ?, phone_number = ?, address = ?'
                 ' WHERE id = ?',
                 (first_name, last_name, e_mail, phone_number, address, id,)
             )

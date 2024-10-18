@@ -156,4 +156,3 @@ def _(app):
         db = get_db()
         contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
         assert contact['phone_number'] == '+44-011-755-5555'
-
