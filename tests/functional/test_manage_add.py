@@ -108,4 +108,4 @@ def _(app):
     with app.app_context():
         db = get_db()
         count = db.execute('SELECT COUNT(id) FROM contacts').fetchone()[0]
-        assert count == 0
+        assert not count
