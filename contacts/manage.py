@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
 
@@ -54,9 +54,9 @@ def create():
 
 def get_contact(id):
     contact = get_db().execute(
-        'SELECT id, first_name, last_name, e_mail, phone_number, address, created_at'
-        ' FROM contacts'
-        ' WHERE id = ?',
+        "SELECT id, first_name, last_name, e_mail, phone_number, address, created_at"
+        " FROM contacts"
+        " WHERE id = ?",
         (id,)
     ).fetchone()
 
@@ -90,8 +90,9 @@ def update(id):
         else:
             db = get_db()
             db.execute(
-                'UPDATE contacts SET first_name = ?, last_name = ?, e_mail = ?, phone_number = ?, address = ?'
-                ' WHERE id = ?',
+                "UPDATE contacts"
+                " SET first_name = ?, last_name = ?, e_mail = ?, phone_number = ?, address = ?"
+                " WHERE id = ?",
                 (first_name, last_name, e_mail, phone_number, address, id,)
             )
             db.commit()

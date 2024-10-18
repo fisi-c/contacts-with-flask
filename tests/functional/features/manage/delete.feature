@@ -6,6 +6,6 @@ Feature: Delete contact
 
     Scenario: User deletes contact
         Given a user
-        And a contact
-        When she posts deleting the contact
-        Then there is no contact in the database
+        And one contact
+        When she posts deleting the contact with id 1
+        Then there is no contact with id 1 in the database

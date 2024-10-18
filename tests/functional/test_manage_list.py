@@ -10,7 +10,7 @@ from pytest_bdd import (
 from contacts.db import get_db
 
 
-@scenario('features/contact_list.feature', 'User requests list')
+@scenario('features/manage/list.feature', 'User requests list')
 def test_user_requests_list():
     """User requests list."""
 
@@ -22,10 +22,10 @@ def _(app):
         db = get_db()
         db.execute(
             "INSERT INTO contacts (first_name, last_name, e_mail, created_at)"
-            "VALUES"
-            "('Alpha', 'Anonymous', 'alpha@example.com', '2024-01-01 00:00:00'),"
-            "('Beta', 'Anonymous', 'beta@example.com', '2024-01-02 00:00:00'),"
-            "('Gamma', 'Anonymous', 'gamma@example.com', '2024-01-03 00:00:00');"
+            " VALUES"
+            " ('Alpha', 'Anonymous', 'alpha@example.com', '2024-01-01 00:00:00'),"
+            " ('Beta', 'Anonymous', 'beta@example.com', '2024-01-02 00:00:00'),"
+            " ('Gamma', 'Anonymous', 'gamma@example.com', '2024-01-03 00:00:00');"
         )
         db.commit()
 
@@ -36,26 +36,23 @@ def _():
     pass
 
 
-@when('she requests the contact list')
+@when('she requests the contact list', target_fixture='response')
 def _(client):
     """she requests the contact list."""
-    global response
-    response = client.get('/')
+    return client.get('/')
 
 
 @then('she sees a list of all contacts')
-def _():
+def _(response):
     """she sees a list of all contacts."""
-    global response
     assert b'Alpha' in response.data
     assert b'Beta' in response.data
     assert b'Gamma' in response.data
 
 
 @then('she sees the latest contact first in the list')
-def _():
+def _(response):
     """she sees the latest contact first in the list."""
-    global response
     _index = response.data.index
     assert _index(b'Gamma') < _index(b'Alpha')
     assert _index(b'Gamma') < _index(b'Beta')

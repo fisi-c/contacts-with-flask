@@ -10,19 +10,20 @@ from pytest_bdd import (
 from contacts.db import get_db
 
 
-@scenario('features/contact_delete.feature', 'User deletes contact')
+@scenario('features/manage/delete.feature', 'User deletes contact')
 def test_user_deletes_contact():
     """User deletes contact."""
 
 
-@given('a contact')
+@given('one contact')
 def _(app):
-    """a contact."""
+    """one contact."""
     with app.app_context():
         db = get_db()
         db.execute(
             "INSERT INTO contacts (first_name, last_name, e_mail, phone_number, address, created_at)"
-            "VALUES ('Joe', 'Bloggs', 'joe.bloggs@example.com', '+44-011-755-5555', 'Bristol', '2024-01-01 00:00:00');"
+            " VALUES"
+            " ('Joe', 'Bloggs', 'joe.bloggs@example.com', '+44-011-755-5555', 'Bristol', '2024-01-01 00:00:00');"
         )
 
 
@@ -32,15 +33,15 @@ def _():
     pass
 
 
-@when('she posts deleting the contact')
+@when('she posts deleting the contact with id 1')
 def _(client):
-    """she posts deleting the contact."""
+    """she posts deleting the contact with id 1."""
     client.post('/1/delete')
 
 
-@then('there is no contact in the database')
+@then('there is no contact with id 1 in the database')
 def _(app):
-    """there is no contact in the database."""
+    """there is no contact with id 1 in the database."""
     with app.app_context():
         db = get_db()
         contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()

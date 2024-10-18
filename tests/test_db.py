@@ -1,5 +1,5 @@
-import pytest
 import sqlite3
+import pytest
 
 from contacts.db import get_db
 
@@ -26,3 +26,4 @@ def test_init_db_command(runner, monkeypatch):
     result = runner.invoke(args=['init-db'])
     assert 'Initialized' in result.output
     assert Recorder.called
+    
