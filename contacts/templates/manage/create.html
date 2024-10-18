@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Create contact{% endblock %}</h1>
+<h1>{% block title %}Create contact{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="first_name">First name</label>
-    <input name="first_name" id="first_name" value="{{ request.form['first_name'] }}" required>
-    <label for="last_name">Last name</label>
-    <input name="last_name" id="last_name" value="{{ request.form['last_name'] }}" required>
-    <label for="e_mail">E-mail</label>
-    <input name="e_mail" id="e_mail" value="{{ request.form['e_mail'] }}" required>
-    <label for="phone_number">Phone name</label>
-    <input name="phone_number" id="phone_number" value="{{ request.form['phone_number'] }}">
-    <label for="address">Address</label>
-    <input name="address" id="address" value="{{ request.form['address'] }}">
-    <input type="submit" value="Save">
-  </form>
+<form method="post">
+  <label for="first_name">First name</label>
+  <input name="first_name" id="first_name" value="{{ request.form['first_name'] }}" required>
+  <label for="last_name">Last name</label>
+  <input name="last_name" id="last_name" value="{{ request.form['last_name'] }}" required>
+  <label for="e_mail">E-mail</label>
+  <input name="e_mail" id="e_mail" value="{{ request.form['e_mail'] }}" required>
+  <label for="phone_number">Phone name</label>
+  <input name="phone_number" id="phone_number" value="{{ request.form['phone_number'] }}">
+  <label for="address">Address</label>
+  <input name="address" id="address" value="{{ request.form['address'] }}">
+  <input type="submit" value="Save">
+</form>
 {% endblock %}

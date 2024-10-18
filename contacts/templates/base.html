@@ -1,12 +1,15 @@
 <!doctype html>
-<title>{% block title %}contacts-with-flask{% endblock %}</title>
-
+<title>{% block title %}{% endblock %} % cwf</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1>cwf</h1>
+</nav>
 <section class="content">
   <header>
     {% block header %}{% endblock %}
   </header>
   {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
+  <div class="flash">{{ message }}</div>
   {% endfor %}
   {% block content %}{% endblock %}
 </section>
