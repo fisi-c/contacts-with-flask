@@ -149,43 +149,57 @@ def _(app):
         assert contact['phone_number'] == '+44-011-755-5555'
 
 
-@when('she posts a blank e-mail')
-def _():
+@when('she posts a blank e-mail', target_fixture='response')
+def _(client, anon_contact):
     """she posts a blank e-mail."""
-    raise NotImplementedError
+    anon_contact['e_mail'] = ''
+    return client.post('1/update', data=anon_contact)
 
 
-@when('she posts a blank first name')
-def _():
+@when('she posts a blank first name', target_fixture='response')
+def _(client, anon_contact):
     """she posts a blank first name."""
-    raise NotImplementedError
+    anon_contact['first_name'] = ''
+    return client.post('1/update', data=anon_contact)
 
 
-@when('she posts a blank last name')
-def _():
+@when('she posts a blank last name', target_fixture='response')
+def _(client, anon_contact):
     """she posts a blank last name."""
-    raise NotImplementedError
+    anon_contact['last_name'] = ''
+    return client.post('1/update', data=anon_contact)
 
 
 @then('she can see an error message')
-def _():
+def _(response):
     """she can see an error message."""
-    raise NotImplementedError
+    assert b'is required.' in response.data
 
 
 @then('the e-mail of this contact is not blank')
-def _():
+def _(app):
     """the e-mail of this contact is not blank."""
-    raise NotImplementedError
+    with app.app_context():
+        db = get_db()
+        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
+        assert contact['e_mail'] != ''
+
 
 
 @then('the first name of this contact is not blank')
-def _():
+def _(app):
     """the first name of this contact is not blank."""
-    raise NotImplementedError
+    with app.app_context():
+        db = get_db()
+        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
+        assert contact['first_name'] != ''
+
 
 
 @then('the last name of this contact is not blank')
-def _():
+def _(app):
     """the last name of this contact is not blank."""
-    raise NotImplementedError
+    with app.app_context():
+        db = get_db()
+        contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
+        assert contact['last_name'] != ''
