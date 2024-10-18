@@ -33,3 +33,24 @@ Feature: Update contact
         And a contact
         When she posts a changed address "Bristol"
         Then the address of this contact is "Bristol"
+
+    Scenario: User posts blank first name
+        Given a user
+        And a contact
+        When she posts a blank first name
+        Then she can see an error message
+        And the first name of this contact is not blank
+
+    Scenario: User posts blank last name
+        Given a user
+        And a contact
+        When she posts a blank last name
+        Then she can see an error message
+        And the last name of this contact is not blank
+        
+    Scenario: User posts blank e-mail
+        Given a user
+        And a contact
+        When she posts a blank e-mail
+        Then she can see an error message
+        And the e-mail of this contact is not blank

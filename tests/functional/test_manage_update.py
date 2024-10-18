@@ -35,6 +35,21 @@ def test_user_changes_phone():
     """User changes phone."""
 
 
+@scenario('features/manage/update.feature', 'User posts blank e-mail')
+def test_user_posts_blank_email():
+    """User posts blank e-mail."""
+
+
+@scenario('features/manage/update.feature', 'User posts blank first name')
+def test_user_posts_blank_first_name():
+    """User posts blank first name."""
+
+
+@scenario('features/manage/update.feature', 'User posts blank last name')
+def test_user_posts_blank_last_name():
+    """User posts blank last name."""
+
+
 @given('a contact')
 def _(app, anon_contact):
     """a contact."""
@@ -132,3 +147,45 @@ def _(app):
         db = get_db()
         contact = db.execute('SELECT * FROM contacts WHERE id = 1').fetchone()
         assert contact['phone_number'] == '+44-011-755-5555'
+
+
+@when('she posts a blank e-mail')
+def _():
+    """she posts a blank e-mail."""
+    raise NotImplementedError
+
+
+@when('she posts a blank first name')
+def _():
+    """she posts a blank first name."""
+    raise NotImplementedError
+
+
+@when('she posts a blank last name')
+def _():
+    """she posts a blank last name."""
+    raise NotImplementedError
+
+
+@then('she can see an error message')
+def _():
+    """she can see an error message."""
+    raise NotImplementedError
+
+
+@then('the e-mail of this contact is not blank')
+def _():
+    """the e-mail of this contact is not blank."""
+    raise NotImplementedError
+
+
+@then('the first name of this contact is not blank')
+def _():
+    """the first name of this contact is not blank."""
+    raise NotImplementedError
+
+
+@then('the last name of this contact is not blank')
+def _():
+    """the last name of this contact is not blank."""
+    raise NotImplementedError
