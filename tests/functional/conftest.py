@@ -32,3 +32,14 @@ def client(app):
 @pytest.fixture
 def runner(app):
     return app.test_cli_runner()
+
+
+@pytest.fixture
+def anon_contact():
+    return {
+        'first_name': 'Anonymous',
+        'last_name': 'Anonymous',
+        'e_mail': 'anonymous@example.com',
+        'phone_number': '',
+        'address': '',
+    }

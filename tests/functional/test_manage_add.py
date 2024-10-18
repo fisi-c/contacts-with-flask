@@ -37,58 +37,34 @@ def _():
 
 
 @when('she posts a contact')
-def _(client):
+def _(client, anon_contact):
     """she posts a contact."""
-    client.post('/create', data={
-        'first_name': 'Anonymous',
-        'last_name': 'Anonymous',
-        'e_mail': 'anonymous@example.com',
-        'phone_number': '',
-        'address': '',
-    })
+    client.post('/create', data=anon_contact)
 
 
-@when('she posts a contact without e-mail')
-def _(client):
+@when('she posts a contact without e-mail', target_fixture='response')
+def _(client, anon_contact):
     """she posts a contact without e-mail."""
-    global response
-    response = client.post('/create', data={
-        'first_name': 'Anonymous',
-        'last_name': 'Anonymous',
-        'e_mail': '',
-        'phone_number': '',
-        'address': '',
-    })
+    anon_contact['e_mail'] = ''
+    return client.post('/create', data=anon_contact)
 
 
-@when('she posts a contact without first name')
-def _(client):
+@when('she posts a contact without first name', target_fixture='response')
+def _(client, anon_contact):
     """she posts a contact without first name."""
-    global response
-    response = client.post('/create', data={
-        'first_name': '',
-        'last_name': 'Anonymous',
-        'e_mail': 'anonymous@example.com',
-        'phone_number': '',
-        'address': '',
-    })
+    anon_contact['first_name'] = ''
+    return client.post('/create', data=anon_contact)
 
 
-@when('she posts a contact without last name')
-def _(client):
+@when('she posts a contact without last name', target_fixture='response')
+def _(client, anon_contact):
     """she posts a contact without last name."""
-    global response
-    response = client.post('/create', data={
-        'first_name': 'Anonymous',
-        'last_name': '',
-        'e_mail': 'anonymous@example.com',
-        'phone_number': '',
-        'address': '',
-    })
+    anon_contact['last_name'] = ''
+    return client.post('/create', data=anon_contact)
 
 
 @then('she can see an error message')
-def _():
+def _(response):
     """she can see an error message."""
     assert b'is required.' in response.data
 

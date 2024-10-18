@@ -36,13 +36,14 @@ def test_user_changes_phone():
 
 
 @given('a contact')
-def _(app):
+def _(app, anon_contact):
     """a contact."""
     with app.app_context():
         db = get_db()
         db.execute(
             "INSERT INTO contacts (first_name, last_name, e_mail)"
-            " VALUES ('Anonymous', 'Anonymous', 'anonymous@example.com');"
+            " VALUES (?, ?, ?)",
+            (anon_contact['first_name'], anon_contact['last_name'], anon_contact['e_mail'],)
         )
         db.commit()
 
@@ -54,63 +55,38 @@ def _():
 
 
 @when('she posts a changed address "Bristol"')
-def _(client):
+def _(client, anon_contact):
     """she posts a changed address "Bristol"."""
-    client.post('/1/update', data={
-        'first_name': 'Anonymous',
-        'last_name': 'Anonymous',
-        'e_mail': 'anonymous@example.com',
-        'phone_number': '',
-        'address': 'Bristol',
-    })
+    anon_contact['address'] = 'Bristol'
+    client.post('/1/update', data=anon_contact)
 
 
 @when('she posts a changed e-mail "joe.bloggs@example.com"')
-def _(client):
+def _(client, anon_contact):
     """she posts a changed e-mail "joe.bloggs@example.com"."""
-    client.post('/1/update', data={
-        'first_name': 'Anonymous',
-        'last_name': 'Anonymous',
-        'e_mail': 'joe.bloggs@example.com',
-        'phone_number': '',
-        'address': '',
-    })
+    anon_contact['e_mail'] = 'joe.bloggs@example.com'
+    client.post('/1/update', data=anon_contact)
 
 
 @when('she posts a changed first name "Joe"')
-def _(client):
+def _(client, anon_contact):
     """she posts a changed first name "Joe"."""
-    client.post('/1/update', data={
-        'first_name': 'Joe',
-        'last_name': 'Anonymous',
-        'e_mail': 'anonymous@example.com',
-        'phone_number': '',
-        'address': '',
-    })
+    anon_contact['first_name'] = 'Joe'
+    client.post('/1/update', data=anon_contact)
 
 
 @when('she posts a changed last name "Bloggs"')
-def _(client):
+def _(client, anon_contact):
     """she posts a changed last name "Bloggs"."""
-    client.post('/1/update', data={
-        'first_name': 'Anonymous',
-        'last_name': 'Bloggs',
-        'e_mail': 'anonymous@example.com',
-        'phone_number': '',
-        'address': '',
-    })
+    anon_contact['last_name'] = 'Bloggs'
+    client.post('/1/update', data=anon_contact)
 
 
 @when('she posts a changed phone "+44-011-755-5555"')
-def _(client):
+def _(client, anon_contact):
     """she posts a changed phone "+44-011-755-5555"."""
-    client.post('/1/update', data={
-        'first_name': 'Anonymous',
-        'last_name': 'Anonymous',
-        'e_mail': 'anonymous@example.com',
-        'phone_number': '+44-011-755-5555',
-        'address': '',
-    })
+    anon_contact['phone_number'] = '+44-011-755-5555'
+    client.post('/1/update', data=anon_contact)
 
 
 @then('the address of this contact is "Bristol"')

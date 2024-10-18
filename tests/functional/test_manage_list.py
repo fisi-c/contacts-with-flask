@@ -36,26 +36,23 @@ def _():
     pass
 
 
-@when('she requests the contact list')
+@when('she requests the contact list', target_fixture='response')
 def _(client):
     """she requests the contact list."""
-    global response
-    response = client.get('/')
+    return client.get('/')
 
 
 @then('she sees a list of all contacts')
-def _():
+def _(response):
     """she sees a list of all contacts."""
-    global response
     assert b'Alpha' in response.data
     assert b'Beta' in response.data
     assert b'Gamma' in response.data
 
 
 @then('she sees the latest contact first in the list')
-def _():
+def _(response):
     """she sees the latest contact first in the list."""
-    global response
     _index = response.data.index
     assert _index(b'Gamma') < _index(b'Alpha')
     assert _index(b'Gamma') < _index(b'Beta')
