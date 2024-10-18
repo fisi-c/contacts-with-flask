@@ -3,7 +3,7 @@ import tempfile
 import pytest
 
 from contacts import create_app
-from contacts.db import get_db, init_db
+from contacts.db import init_db
 
 
 @pytest.fixture

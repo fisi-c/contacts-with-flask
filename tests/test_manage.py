@@ -1,7 +1,5 @@
 import pytest
 
-from contacts.db import get_db
-
 
 def test_index_returns_all_fields(client):
     response = client.get('/')
