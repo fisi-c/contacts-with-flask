@@ -42,7 +42,7 @@ def _(app):
         db = get_db()
         db.execute(
             "INSERT INTO contacts (first_name, last_name, e_mail)"
-            "VALUES ('Anonymous', 'Anonymous', 'anonymous@example.com');"
+            " VALUES ('Anonymous', 'Anonymous', 'anonymous@example.com');"
         )
         db.commit()
 

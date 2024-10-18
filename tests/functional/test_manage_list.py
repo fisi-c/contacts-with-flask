@@ -22,10 +22,10 @@ def _(app):
         db = get_db()
         db.execute(
             "INSERT INTO contacts (first_name, last_name, e_mail, created_at)"
-            "VALUES"
-            "('Alpha', 'Anonymous', 'alpha@example.com', '2024-01-01 00:00:00'),"
-            "('Beta', 'Anonymous', 'beta@example.com', '2024-01-02 00:00:00'),"
-            "('Gamma', 'Anonymous', 'gamma@example.com', '2024-01-03 00:00:00');"
+            " VALUES"
+            " ('Alpha', 'Anonymous', 'alpha@example.com', '2024-01-01 00:00:00'),"
+            " ('Beta', 'Anonymous', 'beta@example.com', '2024-01-02 00:00:00'),"
+            " ('Gamma', 'Anonymous', 'gamma@example.com', '2024-01-03 00:00:00');"
         )
         db.commit()
 

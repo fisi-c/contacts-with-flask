@@ -53,5 +53,5 @@ def test_update_post_method_validates_input(client, path):
 
 def test_delete_post_method_redirects_to_index(client):
     response = client.post('/1/delete')
-    assert response.headers["Location"] == "/"
+    assert response.headers['Location'] == '/'
     
